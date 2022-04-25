@@ -30,6 +30,10 @@ class UserService{
         return await User.updateOne({"_id": _id}, {$set: {isDel: true}})
     }
 
+    async findUser(id){
+        return await User.find({_id:id}).select(["-salt","-hash"])
+    }
+
     async loginUser(email, password){
         const result = await User.find({email:email});
         if(result){
